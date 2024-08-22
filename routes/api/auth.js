@@ -34,16 +34,18 @@ router.post("/", [
         return res.status(400).json({ errors: errors.array() });
     } 
 
+    // getting payload from request
     const { email, password } = req.body
     
     try {
+        // Checking the user into the database
         const user = await User.findOne({email})
         if(!user){
             return res.status(400).json({errors: [{msg: "invalid credentials"}]})
         }
 
+        // Comparing the password 
         const isMatch = await bcrypt.compare(password, user.password)
-
         if(!isMatch){
             return res.status(400).json({errors: [{msg: "invalid credentials"}]})
         }
@@ -54,6 +56,7 @@ router.post("/", [
             }
         }
 
+        // Generating a new JWT token for the user
         jwt.sign(payload, config.get('jwtToken'), { expiresIn: 3600 }, (err, token)=>{
             if (err) throw err
             res.json(token)
