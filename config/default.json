@@ -1,3 +1,4 @@
 {
-    "mongoURI":"mongodb+srv://admin:admin@devconn.qww6qjt.mongodb.net/"
+    "mongoURI":"mongodb+srv://admin:admin@devconn.qww6qjt.mongodb.net/",
+    "jwtToken": "myserettoken"
 }
